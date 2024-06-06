@@ -6,7 +6,7 @@ export const getAllUsers = async() => {
 
 const validar = (arg) => {
     if (Object.keys(arg).length !== 14) {
-        console.error("El argumento NO cumple la validacion: '2 Argumentos'");
+        console.error("El argumento NO cumple la validacion: 'Cantidad de Argumentos'");
         return false;
     }
 
