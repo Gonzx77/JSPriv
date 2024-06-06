@@ -6,5 +6,5 @@ import {getAllPosts, addPost} from "./modules/posts.js";
 let op = prompt("Quiere ejecutar el codigo? (si / no)");
 
 if (op.toLowerCase() === "si" ) {
-    console.table(await addPost({userId: "10", title: "titulo prueba", body: "cuerpo prueba"}));
+    console.table(await addAlbum({userId: "10", title: "titulo prueba"}));
 }
