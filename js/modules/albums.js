@@ -8,7 +8,7 @@ export const getAllAlbums = async() => {
     return data;
 }
 
-const validar = (arg) => {
+const validarAdd = (arg) => {
     if (Object.keys(arg).length !== 2) {
         console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
@@ -24,9 +24,16 @@ const validar = (arg) => {
     return true;
 }
 
+const validarDelete = (id) => {
+    if (typeof id !== "string") {
+        return false;
+    }
+    return true;
+}
+
 export const addAlbum = async(arg) => {
 
-    if (validar(arg)) {
+    if (validarAdd(arg)) {
         let userId = arg.userId;
         let title = arg.title;
     
@@ -48,11 +55,14 @@ export const addAlbum = async(arg) => {
 }
 
 export const deleteAlbum = async(id)=>{
-    let config = {
-    method: "DELETE",
-    headers: {"Content-Type": "application/json"}
+    if (validarDelete(id)) {
+        let config = {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"}
+            }
+            let res = await fetch(`${remoto.albums}/${id}`, config);
+            let data = await res.json();
+            return data;
     }
-    let res = await fetch(`${remoto.albums}/${id}`, config);
-    let data = await res.json();
-    return data;
+    return false;
 }
