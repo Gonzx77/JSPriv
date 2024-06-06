@@ -71,7 +71,7 @@ export const addUser = async(arg) => {
             })
         }
 
-        let res = await fetch("https://jsonplaceholder.typicode.com/albums", config) ;
+        let res = await fetch("http://172.16.101.146:5804/users", config) ;
         let data = await res.json();
         return data;
     }

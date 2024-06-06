@@ -3,4 +3,8 @@ import {getAllUsers, addUser} from "./modules/users.js";
 import {getAllPosts, addPost} from "./modules/posts.js";
 
 
-console.table(await getAllAlbums());
+let op = prompt("Quiere ejecutar el codigo? (si / no)");
+
+if (op.toLowerCase() === "si" ) {
+    console.table(await addPost({userId: "10", title: "titulo prueba", body: "cuerpo prueba"}));
+}

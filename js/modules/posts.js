@@ -13,7 +13,7 @@ const validar = (arg) => {
         console.error("El argumento NO cumple la validacion: 'Nombre Argumentos'");
         return false;
     }
-    if ((typeof arg.userId !== "number") || (typeof arg.title !== "string") || (typeof arg.body !== "string")) {
+    if ((typeof arg.userId !== "string") || (typeof arg.title !== "string") || (typeof arg.body !== "string")) {
         console.error("El argumento NO cumple la validacion: 'Tipo de Dato'");
         return false;
     }
@@ -37,7 +37,7 @@ export const addPost = async(arg) => {
             })
         }
 
-        let res = await fetch("https://jsonplaceholder.typicode.com/posts", config) ;
+        let res = await fetch("http://172.16.101.146:5800/posts", config) ;
         let data = await res.json();
         return data;
     }
