@@ -44,3 +44,13 @@ export const addPost = async(arg) => {
 
     return false;
 }
+
+export const deletePost = async(id)=>{
+    let config = {
+    method: "DELETE",
+    headers: {"Content-Type": "application/json"}
+    }
+    let res = await fetch(`http://172.16.101.146:5800/posts/${id}`, config);
+    let data = await res.json();
+    return data;
+}
