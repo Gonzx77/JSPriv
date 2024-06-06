@@ -1,5 +1,5 @@
 export const getAllUsers = async() => {
-    let res = await fetch("https://jsonplaceholder.typicode.com/users");
+    let res = await fetch("http://172.16.101.146:5804/users");
     let data = await res.json();
     return data;
 }

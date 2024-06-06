@@ -1,5 +1,5 @@
 export const getAllAlbums = async() => {
-    let res = await fetch("https://jsonplaceholder.typicode.com/albums");
+    let res = await fetch("http://172.16.101.146:5802/albums");
     let data = await res.json();
     return data;
 }
