@@ -1,5 +1,8 @@
+import { local } from "./urls.js";
+import { remoto } from "./urls.js";
+
 export const getAllUsers = async() => {
-    let res = await fetch("http://172.16.101.146:5804/users");
+    let res = await fetch(remoto.users);
     let data = await res.json();
     return data;
 }
@@ -71,7 +74,7 @@ export const addUser = async(arg) => {
             })
         }
 
-        let res = await fetch("http://172.16.101.146:5804/users", config) ;
+        let res = await fetch(remoto.users, config) ;
         let data = await res.json();
         return data;
     }
@@ -84,7 +87,7 @@ export const deleteUser = async(id)=>{
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
     }
-    let res = await fetch(`http://172.16.101.146:5804/users/${id}`, config);
+    let res = await fetch(`${remoto.users}/${id}`, config);
     let data = await res.json();
     return data;
 }

@@ -1,5 +1,8 @@
+import { local } from "./urls.js";
+import { remoto } from "./urls.js";
+
 export const getAllPosts = async() => {
-    let res = await fetch("http://172.16.101.146:5800/posts");
+    let res = await fetch(remoto.posts);
     let data = await res.json();
     return data;
 }
@@ -37,7 +40,7 @@ export const addPost = async(arg) => {
             })
         }
 
-        let res = await fetch("http://172.16.101.146:5800/posts", config) ;
+        let res = await fetch(remoto.posts, config) ;
         let data = await res.json();
         return data;
     }
@@ -50,7 +53,7 @@ export const deletePost = async(id)=>{
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
     }
-    let res = await fetch(`http://172.16.101.146:5800/posts/${id}`, config);
+    let res = await fetch(`${remoto.posts}/${id}`, config);
     let data = await res.json();
     return data;
 }

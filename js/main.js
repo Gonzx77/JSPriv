@@ -6,5 +6,5 @@ import {getAllPosts, addPost, deletePost} from "./modules/posts.js";
 let op = prompt("Quiere ejecutar el codigo? (si / no)");
 
 if (op.toLowerCase() === "si" ) {
-    console.table(await deletePost("b773"));
+    console.table(await getAllAlbums());
 }

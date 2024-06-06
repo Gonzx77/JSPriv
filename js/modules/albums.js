@@ -1,5 +1,9 @@
+import { local } from "./urls.js";
+import { remoto } from "./urls.js";
+
+
 export const getAllAlbums = async() => {
-    let res = await fetch("http://172.16.101.146:5802/albums");
+    let res = await fetch(remoto.albums);
     let data = await res.json();
     return data;
 }
@@ -35,7 +39,7 @@ export const addAlbum = async(arg) => {
             })
         }
 
-        let res = await fetch("http://172.16.101.146:5802/albums", config) ;
+        let res = await fetch(remoto.albums, config) ;
         let data = await res.json();
         return data;
     }
@@ -48,7 +52,7 @@ export const deleteAlbum = async(id)=>{
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
     }
-    let res = await fetch(`http://172.16.101.146:5802/albums/${id}`, config);
+    let res = await fetch(`${remoto.albums}/${id}`, config);
     let data = await res.json();
     return data;
 }
