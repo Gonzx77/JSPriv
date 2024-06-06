@@ -42,3 +42,13 @@ export const addAlbum = async(arg) => {
 
     return false;
 }
+
+export const deleteAlbum = async(id)=>{
+    let config = {
+    method: "DELETE",
+    headers: {"Content-Type": "application/json"}
+    }
+    let res = await fetch(`http://172.16.101.146:5802/albums/${id}`, config);
+    let data = await res.json();
+    return data;
+}
