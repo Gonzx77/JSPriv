@@ -6,11 +6,15 @@ export const getAllAlbums = async() => {
 
 const validar = (arg) => {
     if (Object.keys(arg).length !== 2) {
-        console.error("El argumento NO cumple la validacion: '2 Argumentos'");
+        console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
     }
     if (!("userId" in arg) || !("title" in arg)) {
         console.error("El argumento NO cumple la validacion: 'Nombre Argumentos'");
+        return false;
+    }
+    if ((typeof arg.userId !== "number") || (typeof arg.title !== "string")) {
+        console.error("El argumento NO cumple la validacion: 'Tipo de Dato'");
         return false;
     }
     return true;

@@ -6,7 +6,7 @@ export const getAllUsers = async() => {
 
 const validar = (arg) => {
     if (Object.keys(arg).length !== 14) {
-        console.error("El argumento NO cumple la validacion: 'Cantidad de Argumentos'");
+        console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
     }
 
@@ -19,6 +19,7 @@ const validar = (arg) => {
     if ((typeof arg.rName !== "string") || (typeof arg.uName !== "string") || (typeof arg.email !== "string") || (typeof arg.street !== "string")
     || (typeof arg.suite !== "string") || (typeof arg.city !== "string") || (typeof arg.zipcode !== "string") || (typeof arg.lat !== "string") || (typeof arg.lang !== "string")
     || (typeof arg.phone !== "string") || (typeof arg.website !== "string") || (typeof arg.companyName !== "string") || (typeof arg.catchPhrase !== "string")) {
+        console.error("El argumento NO cumple la validacion: 'Tipo de Dato'");
         return false;
     };
 
