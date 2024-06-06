@@ -7,7 +7,7 @@ export const getAllUsers = async() => {
     return data;
 }
 
-const validar = (arg) => {
+const validarAdd = (arg) => {
     if (Object.keys(arg).length !== 14) {
         console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
@@ -29,9 +29,16 @@ const validar = (arg) => {
     return true;
 }
 
+const validarDelete = (id) => {
+    if (typeof id !== "string") {
+        return false;
+    }
+    return true;
+}
+
 export const addUser = async(arg) => {
 
-    if (validar(arg)) {
+    if (validarAdd(arg)) {
         let rName = arg.rName;
         let uName = arg.uName;
         let email = arg.email;
@@ -83,11 +90,14 @@ export const addUser = async(arg) => {
 }
 
 export const deleteUser = async(id)=>{
-    let config = {
-    method: "DELETE",
-    headers: {"Content-Type": "application/json"}
+    if (validarDelete(id)) {
+        let config = {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json"}
+            }
+            let res = await fetch(`${remoto.users}/${id}`, config);
+            let data = await res.json();
+            return data;
     }
-    let res = await fetch(`${remoto.users}/${id}`, config);
-    let data = await res.json();
-    return data;
+    return false;
 }
