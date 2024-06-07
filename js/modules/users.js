@@ -36,7 +36,23 @@ const validarDelete = (id) => {
     return true;
 }
 
-export const addUser = async(arg) => {
+export const addUser = async() => {
+    let arg = {};
+
+    arg.uName = prompt("Ingrese 'name' para el usuario");
+    arg.rName = prompt("Ingrese 'username' para el usuario");
+    arg.email = prompt("Ingrese 'email' para el usuario");
+    arg.street = prompt("Ingrese 'street' para el usuario");
+    arg.suite = prompt("Ingrese 'suite' para el usuario");
+    arg.city = prompt("Ingrese 'city' para el usuario");
+    arg.zipcode = prompt("Ingrese 'zipcode' para el usuario");
+    arg.lat = prompt("Ingrese 'lat' para el usuario");
+    arg.lang = prompt("Ingrese 'lng' para el usuario");
+    arg.phone = prompt("Ingrese 'phone' para el usuario");
+    arg.website = prompt("Ingrese 'website' para el usuario");
+    arg.companyName = prompt("Ingrese 'companyName' para el usuario");
+    arg.catchPhrase = prompt("Ingrese 'catchPhrase' para el usuario");
+    arg.bs = prompt("Ingrese 'bs' para el usuario");
 
     if (validarAdd(arg)) {
         let rName = arg.rName;
@@ -83,6 +99,7 @@ export const addUser = async(arg) => {
 
         let res = await fetch(remoto.users, config) ;
         let data = await res.json();
+        alert("Publicado !");
         return data;
     }
 

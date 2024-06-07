@@ -31,12 +31,15 @@ const validarDelete = (id) => {
     return true;
 }
 
-export const addAlbum = async(arg) => {
+export const addAlbum = async() => {
+    let arg = {};
+
+    arg.userId = prompt("Ingrese 'userId' para el album");
+    arg.title = prompt("Ingrese 'title' para el album");
 
     if (validarAdd(arg)) {
         let userId = arg.userId;
         let title = arg.title;
-    
         let config = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -48,10 +51,11 @@ export const addAlbum = async(arg) => {
 
         let res = await fetch(remoto.albums, config) ;
         let data = await res.json();
+        alert("Publicado !");
         return data;
     }
 
-    return false;
+    return false
 }
 
 export const deleteAlbum = async(id)=>{
