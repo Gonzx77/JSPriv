@@ -1,9 +1,10 @@
 import { local } from "./urls.js";
 import { remoto } from "./urls.js";
 
+let enlace = local;
 
 export const getAllAlbums = async() => {
-    let res = await fetch(local.albums);
+    let res = await fetch(enlace.albums);
     let data = await res.json();
     return data;
 }
@@ -36,7 +37,7 @@ const validarPut = async(id) => {
         return false;
     }
 
-    let res = await fetch(`${local.albums}/${id}`);
+    let res = await fetch(`${enlace.albums}/${id}`);
     if (res.status == "404") {
         alert("Este ID NO existe");
         return false;
@@ -64,7 +65,7 @@ export const addAlbum = async() => {
             })
         }
 
-        let res = await fetch(local.albums, config) ;
+        let res = await fetch(enlace.albums, config) ;
         let data = await res.json();
         alert("Publicado !");
         return data;
@@ -80,7 +81,7 @@ export const deleteAlbum = async()=>{
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
             }
-            let res = await fetch(`${local.albums}/${id}`, config);
+            let res = await fetch(`${enlace.albums}/${id}`, config);
             let data = await res.json();
             alert("Eliminado !");
             return data;
@@ -90,7 +91,7 @@ export const deleteAlbum = async()=>{
 
 export const updateAlbum = async() => {
     let id = prompt("Ingrese ID del album a editar");
-    let arg = await fetch(`${local.albums}/${id}`);
+    let arg = await fetch(`${enlace.albums}/${id}`);
 
     if (await validarPut(id)) {
         arg = await arg.json();

@@ -1,8 +1,10 @@
 import { local } from "./urls.js";
 import { remoto } from "./urls.js";
 
+let enlace = local;
+
 export const getAllPosts = async() => {
-    let res = await fetch(local.posts);
+    let res = await fetch(enlace.posts);
     let data = await res.json();
     return data;
 }
@@ -52,7 +54,7 @@ export const addPost = async() => {
             })
         }
 
-        let res = await fetch(local.posts, config) ;
+        let res = await fetch(enlace.posts, config) ;
         let data = await res.json();
         alert("Publicado !");
         return data;
@@ -68,7 +70,7 @@ export const deletePost = async()=>{
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
             }
-            let res = await fetch(`${local.posts}/${id}`, config);
+            let res = await fetch(`${enlace.posts}/${id}`, config);
             let data = await res.json();
             alert("Eliminado !");
             return data;

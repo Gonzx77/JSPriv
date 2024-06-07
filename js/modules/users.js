@@ -1,8 +1,10 @@
 import { local } from "./urls.js";
 import { remoto } from "./urls.js";
 
+let enlace = local;
+
 export const getAllUsers = async() => {
-    let res = await fetch(local.users);
+    let res = await fetch(enlace.users);
     let data = await res.json();
     return data;
 }
@@ -97,7 +99,7 @@ export const addUser = async() => {
             })
         }
 
-        let res = await fetch(local.users, config) ;
+        let res = await fetch(enlace.users, config) ;
         let data = await res.json();
         alert("Publicado !");
         return data;
@@ -114,7 +116,7 @@ export const deleteUser = async()=>{
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
             }
-            let res = await fetch(`${local.users}/${id}`, config);
+            let res = await fetch(`${enlace.users}/${id}`, config);
             let data = await res.json();
             alert("Eliminado !");
             return data;
