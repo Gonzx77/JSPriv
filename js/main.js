@@ -1,4 +1,4 @@
-import {getAllAlbums, addAlbum, deleteAlbum} from "./modules/albums.js";
+import {getAllAlbums, addAlbum, deleteAlbum, updateAlbum} from "./modules/albums.js";
 import {getAllUsers, addUser, deleteUser} from "./modules/users.js";
 import {getAllPosts, addPost, deletePost} from "./modules/posts.js";
 
@@ -9,6 +9,7 @@ const contenedor = document.getElementById('MGD2');
 const gAlbum = document.getElementById('gAlbum');
 const aAlbum = document.getElementById('aAlbum');
 const dAlbum = document.getElementById('dAlbum');
+const pAlbum = document.getElementById('pAlbum');
 
 const gUser = document.getElementById('gUser');
 const aUser = document.getElementById('aUser');
@@ -34,6 +35,11 @@ const AddAlbums = async() => {
 const DelAlbums = async() => {
     contenedor.innerHTML = "";
     let datos = await deleteAlbum();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const PutAlbums = async() => {
+    contenedor.innerHTML = "";
+    let datos = await updateAlbum();
     contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
 }
 
@@ -76,6 +82,7 @@ const Clear = async() => {
 gAlbum.addEventListener('click', GetAlbums);
 aAlbum.addEventListener('click', AddAlbums);
 dAlbum.addEventListener('click', DelAlbums);
+pAlbum.addEventListener('click', PutAlbums);
 
 gUser.addEventListener('click', GetUsers);
 aUser.addEventListener('click', AddUsers);

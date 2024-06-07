@@ -2,12 +2,12 @@ import { local } from "./urls.js";
 import { remoto } from "./urls.js";
 
 export const getAllPosts = async() => {
-    let res = await fetch(remoto.posts);
+    let res = await fetch(local.posts);
     let data = await res.json();
     return data;
 }
 
-const validarAdd = (arg) => {
+const validarAdd = async(arg) => {
     if (Object.keys(arg).length !== 3) {
         console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
@@ -23,7 +23,7 @@ const validarAdd = (arg) => {
     return true;
 }
 
-const validarDelete = (id) => {
+const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
@@ -52,7 +52,7 @@ export const addPost = async() => {
             })
         }
 
-        let res = await fetch(remoto.posts, config) ;
+        let res = await fetch(local.posts, config) ;
         let data = await res.json();
         alert("Publicado !");
         return data;
@@ -68,7 +68,7 @@ export const deletePost = async()=>{
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
             }
-            let res = await fetch(`${remoto.posts}/${id}`, config);
+            let res = await fetch(`${local.posts}/${id}`, config);
             let data = await res.json();
             alert("Eliminado !");
             return data;

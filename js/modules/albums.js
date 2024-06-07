@@ -3,12 +3,12 @@ import { remoto } from "./urls.js";
 
 
 export const getAllAlbums = async() => {
-    let res = await fetch(remoto.albums);
+    let res = await fetch(local.albums);
     let data = await res.json();
     return data;
 }
 
-const validarAdd = (arg) => {
+const validarAdd = async(arg) => {
     if (Object.keys(arg).length !== 2) {
         console.error("El argumento NO cumple la validacion: 'Numero de Argumentos'");
         return false;
@@ -24,10 +24,25 @@ const validarAdd = (arg) => {
     return true;
 }
 
-const validarDelete = (id) => {
+const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
+    return true;
+}
+
+const validarPut = async(id) => {
+    if (typeof id !== "string") {
+        return false;
+    }
+
+    let res = await fetch(`${local.albums}/${id}`);
+    if (res.status == "404") {
+        alert("Este ID NO existe");
+        return false;
+    }
+
+    alert("Este ID SI existe");
     return true;
 }
 
@@ -49,7 +64,7 @@ export const addAlbum = async() => {
             })
         }
 
-        let res = await fetch(remoto.albums, config) ;
+        let res = await fetch(local.albums, config) ;
         let data = await res.json();
         alert("Publicado !");
         return data;
@@ -65,10 +80,49 @@ export const deleteAlbum = async()=>{
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
             }
-            let res = await fetch(`${remoto.albums}/${id}`, config);
+            let res = await fetch(`${local.albums}/${id}`, config);
             let data = await res.json();
             alert("Eliminado !");
             return data;
     }
     return false;
+}
+
+export const updateAlbum = async() => {
+    let id = prompt("Ingrese ID del album a editar");
+    let arg = await fetch(`${local.albums}/${id}`);
+
+    if (await validarPut(id)) {
+        arg = await arg.json();
+        
+
+        let NEWuserid = prompt("Ingrese 'userId' a editar (deje en blanco para mantener)");
+        if (NEWuserid) {
+            arg.userId = NEWuserid;
+        }
+        let NEWtitle = prompt("Ingrese 'title' a editar (deje en blanco para mantener)");
+        if (NEWtitle) {
+            arg.title = NEWtitle;
+        }
+
+
+        let id = arg.id;
+        let userId = arg.userId;
+        let title = arg.title;
+
+        let config = {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                id,
+                userId,
+                title
+            })
+        }
+
+        let res = await fetch(`${local.albums}/${arg.id}`, config) ;
+        let data = await res.json();
+        alert("Actualizado !");
+        return data;
+    }
 }
