@@ -30,7 +30,12 @@ const validarDelete = (id) => {
     return true;
 }
 
-export const addPost = async(arg) => {
+export const addPost = async() => {
+    let arg = {};
+
+    arg.userId = prompt("Ingrese 'userId' para el post");
+    arg.title = prompt("Ingrese 'title' para el post");
+    arg.body = prompt("Ingrese 'body' para el post");
 
     if (validarAdd(arg)) {
         let userId = arg.userId;
@@ -49,13 +54,15 @@ export const addPost = async(arg) => {
 
         let res = await fetch(remoto.posts, config) ;
         let data = await res.json();
+        alert("Publicado !");
         return data;
     }
 
     return false;
 }
 
-export const deletePost = async(id)=>{
+export const deletePost = async()=>{
+    let id = prompt("Ingrese ID del post a eliminar");
     if (validarDelete(id)) {
         let config = {
             method: "DELETE",
@@ -63,6 +70,7 @@ export const deletePost = async(id)=>{
             }
             let res = await fetch(`${remoto.posts}/${id}`, config);
             let data = await res.json();
+            alert("Eliminado !");
             return data;
     }
     return false;

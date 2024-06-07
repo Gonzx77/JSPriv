@@ -106,7 +106,9 @@ export const addUser = async() => {
     return false;
 }
 
-export const deleteUser = async(id)=>{
+export const deleteUser = async()=>{
+    let id = prompt("Ingrese ID del usuario a eliminar");
+
     if (validarDelete(id)) {
         let config = {
             method: "DELETE",
@@ -114,6 +116,7 @@ export const deleteUser = async(id)=>{
             }
             let res = await fetch(`${remoto.users}/${id}`, config);
             let data = await res.json();
+            alert("Eliminado !");
             return data;
     }
     return false;

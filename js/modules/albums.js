@@ -58,7 +58,8 @@ export const addAlbum = async() => {
     return false
 }
 
-export const deleteAlbum = async(id)=>{
+export const deleteAlbum = async()=>{
+    let id = prompt("Ingrese ID del album a eliminar");
     if (validarDelete(id)) {
         let config = {
             method: "DELETE",
@@ -66,6 +67,7 @@ export const deleteAlbum = async(id)=>{
             }
             let res = await fetch(`${remoto.albums}/${id}`, config);
             let data = await res.json();
+            alert("Eliminado !");
             return data;
     }
     return false;
