@@ -1,7 +1,9 @@
 import { local } from "./urls.js";
 import { remoto } from "./urls.js";
+import { pc } from "./urls.js";
+import { placeHolder } from "./urls.js";
 
-let enlace = local;
+let enlace = placeHolder;
 
 export const getAllAlbums = async() => {
     let res = await fetch(enlace.albums);
@@ -121,7 +123,7 @@ export const updateAlbum = async() => {
             })
         }
 
-        let res = await fetch(`${local.albums}/${arg.id}`, config) ;
+        let res = await fetch(`${enlace.albums}/${arg.id}`, config) ;
         let data = await res.json();
         alert("Actualizado !");
         return data;

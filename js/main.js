@@ -1,6 +1,6 @@
 import {getAllAlbums, addAlbum, deleteAlbum, updateAlbum} from "./modules/albums.js";
-import {getAllUsers, addUser, deleteUser} from "./modules/users.js";
-import {getAllPosts, addPost, deletePost} from "./modules/posts.js";
+import {getAllUsers, addUser, deleteUser, updateUser} from "./modules/users.js";
+import {getAllPosts, addPost, deletePost, updatePost} from "./modules/posts.js";
 
 
 const contenedor = document.getElementById('MGD2');
@@ -14,10 +14,12 @@ const pAlbum = document.getElementById('pAlbum');
 const gUser = document.getElementById('gUser');
 const aUser = document.getElementById('aUser');
 const dUser = document.getElementById('dUser');
+const pUser = document.getElementById('pUser');
 
 const gPost = document.getElementById('gPost');
 const aPost = document.getElementById('aPost');
 const dPost = document.getElementById('dPost');
+const pPost = document.getElementById('pPost');
 
 const clear = document.getElementById('clear');
 
@@ -58,6 +60,11 @@ const DelUser = async() => {
     let datos = await deleteUser();
     contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
 }
+const PutUser = async() => {
+    contenedor.innerHTML = "";
+    let datos = await updateUser();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
 
 const GetPosts = async() => {
     contenedor.innerHTML = "";
@@ -74,6 +81,11 @@ const DelPosts = async() => {
     let datos = await deletePost();
     contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
 }
+const PutPosts = async() => {
+    contenedor.innerHTML = "";
+    let datos = await updatePost();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
 
 const Clear = async() => {
     contenedor.innerHTML = "";
@@ -87,9 +99,11 @@ pAlbum.addEventListener('click', PutAlbums);
 gUser.addEventListener('click', GetUsers);
 aUser.addEventListener('click', AddUsers);
 dUser.addEventListener('click', DelUser);
+pUser.addEventListener('click', PutUser);
 
 gPost.addEventListener('click', GetPosts);
 aPost.addEventListener('click', AddPosts);
 dPost.addEventListener('click', DelPosts);
+pPost.addEventListener('click', PutPosts);
 
 clear.addEventListener('click', Clear);

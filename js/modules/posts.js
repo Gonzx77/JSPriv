@@ -1,7 +1,9 @@
 import { local } from "./urls.js";
 import { remoto } from "./urls.js";
+import { pc } from "./urls.js";
+import { placeHolder } from "./urls.js";
 
-let enlace = local;
+let enlace = placeHolder;
 
 export const getAllPosts = async() => {
     let res = await fetch(enlace.posts);
@@ -29,6 +31,21 @@ const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
+    return true;
+}
+
+const validarPut = async(id) => {
+    if (typeof id !== "string") {
+        return false;
+    }
+
+    let res = await fetch(`${enlace.posts}/${id}`);
+    if (res.status == "404") {
+        alert("Este ID NO existe");
+        return false;
+    }
+
+    alert("Este ID SI existe");
     return true;
 }
 
@@ -76,4 +93,49 @@ export const deletePost = async()=>{
             return data;
     }
     return false;
+}
+
+export const updatePost = async() => {
+    let id = prompt("Ingrese ID del album a editar");
+    let arg = await fetch(`${enlace.posts}/${id}`);
+
+    if (await validarPut(id)) {
+        arg = await arg.json();
+        
+
+        let NEWuserid = prompt("Ingrese 'userId' a editar (deje en blanco para mantener)");
+        if (NEWuserid) {
+            arg.userId = NEWuserid;
+        }
+        let NEWtitle = prompt("Ingrese 'title' a editar (deje en blanco para mantener)");
+        if (NEWtitle) {
+            arg.title = NEWtitle;
+        }
+        let NEWbody = prompt("Ingrese 'body' a editar (deje en blanco para mantener)");
+        if (NEWbody) {
+            arg.body = NEWbody;
+        }
+
+
+        let id = arg.id;
+        let userId = arg.userId;
+        let title = arg.title;
+        let body = arg.body;
+
+        let config = {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                id,
+                userId,
+                title,
+                body
+            })
+        }
+
+        let res = await fetch(`${enlace.posts}/${arg.id}`, config) ;
+        let data = await res.json();
+        alert("Actualizado !");
+        return data;
+    }
 }
