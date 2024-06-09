@@ -24,6 +24,13 @@ const validarAdd = async(arg) => {
         console.error("El argumento NO cumple la validacion: 'Tipo de Dato'");
         return false;
     }
+
+    let valid = await fetch(`${enlace.users}/${arg.userId}`);
+    if (valid.status == "404") {
+        alert("El userId no existe !");
+        return false;
+    }
+
     return true;
 }
 
@@ -64,15 +71,10 @@ export const addAlbum = async() => {
     arg.title = prompt("Ingrese 'title' para el album");
 
     if (await validarAdd(arg)) {
-        let userId = arg.userId;
-        let title = arg.title;
         let config = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                userId,
-                title
-            })
+            body: JSON.stringify(arg)
         }
 
         let res = await fetch(enlace.albums, config) ;

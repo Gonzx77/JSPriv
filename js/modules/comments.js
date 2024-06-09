@@ -24,6 +24,13 @@ const validarAdd = async(arg) => {
         console.error("El argumento NO cumple la validacion: 'Tipo de Dato'");
         return false;
     }
+
+    let valid = await fetch(`${enlace.posts}/${arg.postId}`);
+    if (valid.status == "404") {
+        alert("El postId no existe !");
+        return false;
+    }
+
     return true;
 }
 
