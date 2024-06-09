@@ -1,9 +1,5 @@
-import { local } from "./urls.js";
-import { remoto } from "./urls.js";
-import { pc } from "./urls.js";
-import { placeHolder } from "./urls.js";
-
-let enlace = placeHolder;
+import { url } from "./urls.js";
+let enlace = url;
 
 export const getAllAlbums = async() => {
     let res = await fetch(enlace.albums);
