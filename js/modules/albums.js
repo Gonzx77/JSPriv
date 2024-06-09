@@ -31,6 +31,14 @@ const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
+
+    let res = await fetch(`${enlace.albums}/${id}`);
+    if (res.status == "404") {
+        alert("Este ID NO existe");
+        return false;
+    }
+
+    alert("Este ID SI existe");
     return true;
 }
 
@@ -55,7 +63,7 @@ export const addAlbum = async() => {
     arg.userId = prompt("Ingrese 'userId' para el album");
     arg.title = prompt("Ingrese 'title' para el album");
 
-    if (validarAdd(arg)) {
+    if (await validarAdd(arg)) {
         let userId = arg.userId;
         let title = arg.title;
         let config = {
@@ -78,7 +86,7 @@ export const addAlbum = async() => {
 
 export const deleteAlbum = async()=>{
     let id = prompt("Ingrese ID del album a eliminar");
-    if (validarDelete(id)) {
+    if (await validarDelete(id)) {
         let config = {
             method: "DELETE",
             headers: {"Content-Type": "application/json"}

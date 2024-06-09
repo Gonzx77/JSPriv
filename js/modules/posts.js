@@ -31,6 +31,14 @@ const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
+
+    let res = await fetch(`${enlace.posts}/${id}`);
+    if (res.status == "404") {
+        alert("Este ID NO existe");
+        return false;
+    }
+
+    alert("Este ID SI existe");
     return true;
 }
 
@@ -82,7 +90,7 @@ export const addPost = async() => {
 
 export const deletePost = async()=>{
     let id = prompt("Ingrese ID del post a eliminar");
-    if (validarDelete(id)) {
+    if (await validarDelete(id)) {
         let config = {
             method: "DELETE",
             headers: {"Content-Type": "application/json"}

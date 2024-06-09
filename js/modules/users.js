@@ -37,6 +37,14 @@ const validarDelete = async(id) => {
     if (typeof id !== "string") {
         return false;
     }
+
+    let res = await fetch(`${enlace.users}/${id}`);
+    if (res.status == "404") {
+        alert("Este ID NO existe");
+        return false;
+    }
+
+    alert("Este ID SI existe");
     return true;
 }
 
@@ -73,7 +81,7 @@ export const addUser = async() => {
     arg.catchPhrase = prompt("Ingrese 'catchPhrase' para el usuario");
     arg.bs = prompt("Ingrese 'bs' para el usuario");
 
-    if (validarAdd(arg)) {
+    if (await validarAdd(arg)) {
         let rName = arg.rName;
         let uName = arg.uName;
         let email = arg.email;
@@ -128,7 +136,7 @@ export const addUser = async() => {
 export const deleteUser = async()=>{
     let id = prompt("Ingrese ID del usuario a eliminar");
 
-    if (validarDelete(id)) {
+    if (await validarDelete(id)) {
         let config = {
             method: "DELETE",
             headers: {"Content-Type": "application/json"}
@@ -148,16 +156,15 @@ export const updateUser = async() => {
     if (await validarPut(id)) {
         arg = await arg.json();
 
-        console.log(arg);
         
         let NEWuName = prompt("Ingrese 'name' a editar (deje en blanco para mantener)");
         if ( NEWuName) {
-            arg.uName = NEWuName;
+            arg.name = NEWuName;
         }
 
         let NEWrName = prompt("Ingrese 'username' a editar (deje en blanco para mantener)");
         if (NEWrName) {
-            arg.rName = NEWrName;
+            arg.username = NEWrName;
         }
 
         let NEWemail = prompt("Ingrese 'email' a editar (deje en blanco para mantener)");
@@ -167,32 +174,32 @@ export const updateUser = async() => {
 
         let NEWstreet = prompt("Ingrese 'street' a editar (deje en blanco para mantener)");
         if (NEWstreet) {
-            arg.street = NEWstreet;
+            arg.address.street = NEWstreet;
         }
 
         let NEWsuite = prompt("Ingrese 'suite' a editar (deje en blanco para mantener)");
         if (NEWsuite) {
-            arg.suite = NEWsuite;
+            arg.address.suite = NEWsuite;
         }
 
         let NEWcity = prompt("Ingrese 'city' a editar (deje en blanco para mantener)");
         if (NEWcity) {
-            arg.city = NEWcity;
+            arg.address.city = NEWcity;
         }
 
         let NEWzipcode = prompt("Ingrese 'zipcode' a editar (deje en blanco para mantener)");
         if (NEWzipcode) {
-            arg.zipcode = NEWzipcode;
+            arg.address.zipcode = NEWzipcode;
         }
 
         let NEWlat = prompt("Ingrese 'lat' a editar (deje en blanco para mantener)");
         if (NEWlat) {
-            arg.lat = NEWlat;
+            arg.address.geo.lat = NEWlat;
         }
 
-        let NEWlang = prompt("Ingrese 'lng' a editar (deje en blanco para mantener)");
-        if (NEWlang) {
-            arg.lang = NEWlang;
+        let NEWlng = prompt("Ingrese 'lng' a editar (deje en blanco para mantener)");
+        if (NEWlng) {
+            arg.address.geo.lng = NEWlng;
         }
 
         let NEWphone = prompt("Ingrese 'phone' a editar (deje en blanco para mantener)");
@@ -207,59 +214,23 @@ export const updateUser = async() => {
         
         let NEWcompanyName = prompt("Ingrese 'companyName' a editar (deje en blanco para mantener)");
         if (NEWcompanyName) {
-            arg.companyName = NEWcompanyName;
+            arg.company.name = NEWcompanyName;
         }
 
         let NEWcatchPhrase = prompt("Ingrese 'catchPhrase' a editar (deje en blanco para mantener)");
         if (NEWcatchPhrase) {
-            arg.catchPhrase = NEWcatchPhrase;
+            arg.company.catchPhrase = NEWcatchPhrase;
         }
 
         let NEWbs = prompt("Ingrese 'bs' a editar (deje en blanco para mantener)");
         if (NEWbs) {
-            arg.bs = NEWbs;
+            arg.company.bs = NEWbs;
         }
-
-        let rName = arg.rName;
-        let uName = arg.uName;
-        let email = arg.email;
-        let street = arg.street;
-        let suite = arg.suite;
-        let city = arg.city;
-        let zipcode = arg.zipcode;
-        let lat = arg.lat;
-        let lang = arg.lang;
-        let phone = arg.phone;
-        let website = arg.website;
-        let companyName = arg.companyName;
-        let catchPhrase = arg.catchPhrase;
-        let bs = arg.bs;
     
         let config = {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                "name": rName,
-                "username": uName,
-                "email": email,
-                "address": {
-                    "street": street,
-                    "suite": suite,
-                    "city": city,
-                    "zipcode": zipcode,
-                    "geo": {
-                        "lat": lat,
-                        "lng": lang
-                    }
-                },
-                "phone": phone,
-                "website": website,
-                "company": {
-                    "name": companyName,
-                    "catchPhrase": catchPhrase,
-                    "bs": bs
-                }
-            })
+            body: JSON.stringify(arg)
         }
 
         let res = await fetch(`${enlace.users}/${arg.id}`, config);
