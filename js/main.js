@@ -1,6 +1,8 @@
 import {getAllAlbums, addAlbum, deleteAlbum, updateAlbum} from "./modules/albums.js";
 import {getAllUsers, addUser, deleteUser, updateUser} from "./modules/users.js";
 import {getAllPosts, addPost, deletePost, updatePost} from "./modules/posts.js";
+import {getAllComments, addComment, deleteComment, updateComment} from "./modules/comments.js";
+import {getAllPhotos, addPhoto, deletePhoto, updatePhoto} from "./modules/photos.js";
 
 
 const contenedor = document.getElementById('MGD2');
@@ -20,6 +22,16 @@ const gPost = document.getElementById('gPost');
 const aPost = document.getElementById('aPost');
 const dPost = document.getElementById('dPost');
 const pPost = document.getElementById('pPost');
+
+const gComment = document.getElementById('gComment');
+const aComment = document.getElementById('aComment');
+const dComment = document.getElementById('dComment');
+const pComment = document.getElementById('pComment');
+
+const gPhoto = document.getElementById('gPhoto');
+const aPhoto = document.getElementById('aPhoto');
+const dPhoto = document.getElementById('dPhoto');
+const pPhoto = document.getElementById('pPhoto');
 
 const clear = document.getElementById('clear');
 
@@ -86,6 +98,47 @@ const PutPosts = async() => {
     let datos = await updatePost();
     contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
 }
+const GetComments = async() => {
+    contenedor.innerHTML = "";
+    let datos = await getAllComments();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const AddComments = async() => {
+    contenedor.innerHTML = "";
+    let datos = await addComment();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const DelComments = async() => {
+    contenedor.innerHTML = "";
+    let datos = await deleteComment();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const PutComments = async() => {
+    contenedor.innerHTML = "";
+    let datos = await updateComment();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+
+const GetPhotos = async() => {
+    contenedor.innerHTML = "";
+    let datos = await getAllPhotos();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const AddPhotos = async() => {
+    contenedor.innerHTML = "";
+    let datos = await addPhoto();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const DelPhotos = async() => {
+    contenedor.innerHTML = "";
+    let datos = await deletePhoto();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
+const PutPhotos = async() => {
+    contenedor.innerHTML = "";
+    let datos = await updatePhoto();
+    contenedor.innerHTML = `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+}
 
 const Clear = async() => {
     contenedor.innerHTML = "";
@@ -105,5 +158,17 @@ gPost.addEventListener('click', GetPosts);
 aPost.addEventListener('click', AddPosts);
 dPost.addEventListener('click', DelPosts);
 pPost.addEventListener('click', PutPosts);
+
+gComment.addEventListener('click', GetComments);
+aComment.addEventListener('click', AddComments);
+dComment.addEventListener('click', DelComments);
+pComment.addEventListener('click', PutComments);
+
+gPhoto.addEventListener('click', GetPhotos);
+aPhoto.addEventListener('click', AddPhotos);
+dPhoto.addEventListener('click', DelPhotos);
+pPhoto.addEventListener('click', PutPhotos);
+
+gPhoto.addEventListener('click', GetPhotos);
 
 clear.addEventListener('click', Clear);
