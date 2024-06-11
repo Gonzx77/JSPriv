@@ -114,19 +114,10 @@ export const updateAlbum = async() => {
             arg.title = NEWtitle;
         }
 
-
-        let id = arg.id;
-        let userId = arg.userId;
-        let title = arg.title;
-
         let config = {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                id,
-                userId,
-                title
-            })
+            body: JSON.stringify(arg)
         }
 
         let res = await fetch(`${enlace.albums}/${arg.id}`, config) ;

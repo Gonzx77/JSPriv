@@ -119,21 +119,10 @@ export const updatePost = async() => {
             arg.body = NEWbody;
         }
 
-
-        let id = arg.id;
-        let userId = arg.userId;
-        let title = arg.title;
-        let body = arg.body;
-
         let config = {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                id,
-                userId,
-                title,
-                body
-            })
+            body: JSON.stringify(arg)
         }
 
         let res = await fetch(`${enlace.posts}/${arg.id}`, config) ;
